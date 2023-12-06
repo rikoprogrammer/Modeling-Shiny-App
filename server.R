@@ -9,9 +9,10 @@ server <- function(input, output, session) {
       return("")
     }else {
       # read.csv(file = input$file$datapath)
-      read_excel(path = input$file$datapath, sheet = input$sheet_index)
+      f_data = read_excel(path = input$file$datapath, sheet = input$sheet_index)
+      f_data %>% janitor::clean_names()
     }
-  )
+  ) 
   
   vars2 <- tibble::tribble(
     
@@ -253,14 +254,44 @@ server <- function(input, output, session) {
     }
   })
   
+  
   output$iv_summary <- renderPrint({
-    
+
     if(input$idn3 > 0){
-      
+
       print(form())
       summary(iv_fit(), vcov = sandwich, diagnostics = TRUE)
     }
   })
+
+  #create a reactive object to be used in the rmarkdown report below
+  
+  # iv_sum <- reactive(
+  #    
+  #   if(input$idn3 > 0){
+  #     
+  #     print(form())
+  #     summary(iv_fit(), vcov = sandwich, diagnostics = TRUE)
+  #   }  
+  # )
+  
+  #render rmarkdown report in html
+  
+  # output$iv_summary1 <- downloadHandler(
+  #   filename = function() {
+  #     paste0("iv-report_", Sys.Date(), ".html")
+  #   },
+  #   content = function(file) {
+  #     rmarkdown::render("reports/report.Rmd",
+  #                       output_file = file,
+  #                       params = list(
+  #                         title = "IV Report",
+  #                         data = iv_sum()
+  #                       ),
+  #                       envir = new.env(),
+  #                       intermediates_dir = tempdir())
+  #   }
+  # )
   
   output$metrics33 <- renderPrint({
     
@@ -1076,7 +1107,7 @@ server <- function(input, output, session) {
   output$downloadPreds1 <- downloadHandler(
     
     filename = function() {
-      paste("preds1", ".csv", sep = "")
+      paste("preds1_mod1", ".csv", sep = "")
     },
     
     content = function(file) {

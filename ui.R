@@ -32,7 +32,14 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                               selectInput(inputId = "tr_vars",
                                           label = "select variables to transform",
                                           choices = "",
-                                          multiple = TRUE)
+                                          multiple = TRUE),
+                              
+                                pmap(vars[1,], mySelectInput),
+                                pmap(vars[2,], mySelectInput),
+                                pmap(vars[3,], mySelectInput),
+                              
+                                
+                              
                               
                               
                 ),
@@ -165,15 +172,14 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                         
                              ),
                              
-                             tabPanel(
-                               title = "IV Regression",
-                               column(4, pmap(vars[1,], mySelectInput)),
-                               column(4, pmap(vars[2,], mySelectInput)),
-                               column(4, pmap(vars[3,], mySelectInput)),
-                               actionButton("idn3","Click here to run the model"),
-                               downloadButton("dw3","Download coefficients"),
-                               
-                               verbatimTextOutput("iv_summary")
+                              tabPanel(
+                                title = "IV Regression",
+                                actionButton("idn3","Click here to run the model"),
+                                #downloadButton("iv_summary1", "Summary report"),
+                                downloadButton("dw3","Download coefficients"),
+                                
+                                verbatimTextOutput("iv_summary")
+                              
                              ),
                              
                              # tabPanel(
@@ -181,6 +187,15 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                              #   downloadButton("scrape","Download data"),
                              #   DTOutput("scrape1")
                              # )
+                             
+                             #   column(4, pmap(vars[1,], mySelectInput)),
+                             #   column(4, pmap(vars[2,], mySelectInput)),
+                             #   column(4, pmap(vars[3,], mySelectInput)),
+                             #   actionButton("idn3","Click here to run the model"),
+                             #   downloadButton("iv_summary1", "Summary report"),
+                             #   downloadButton("dw3","Download coefficients"),
+                             #   
+                             #   verbatimTextOutput("iv_summary")
                   )
                 )
 )
