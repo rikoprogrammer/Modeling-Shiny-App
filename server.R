@@ -518,17 +518,13 @@ server <- function(input, output, session) {
     if(is.null(input$file) & input$run4 <0){
       return(cat("Please select your data and run the model first!"))
     }else if(!is.null(input$file) & input$run4 > 0){
-      # data_f <- input_dataset() %>% 
-      #   dplyr::select(
-      #     dependent_var = input$y_var,
-      #     input$x_vars) %>% 
-      #   drop_na() 
+      
       
       intercept_only = lm(dependent_var ~ 1, data = train())
 
       model_all = lm(dependent_var ~ ., data = train())
 
-      forward_fit = step(intercept_only, direction='forward', scope=formula(model_all),
+      forward_fit = stats::step(intercept_only, direction='forward', scope=formula(model_all),
                          trace=0)
     }
   }
@@ -539,11 +535,7 @@ server <- function(input, output, session) {
     if(is.null(input$file) & input$run5 < 0){
       return(cat("Please select your data and run the model first!"))
     }else if(!is.null(input$file) & input$run5 > 0) {
-      # data_f <- input_dataset() %>% 
-      #   dplyr::select(
-      #     dependent_var = input$y_var,
-      #     input$x_vars) %>% 
-      #   drop_na() 
+     
       
       full_mod = lm(dependent_var ~., data = train())
       backward_fit = MASS::stepAIC(full_mod, direction = "backward", trace = FALSE)
@@ -1147,17 +1139,14 @@ server <- function(input, output, session) {
       write.csv(preds_time2(), file, row.names = FALSE)
     }
   )
+  
+  
   ####pred vs actual data sets for use in plotting the graphs
   
   dat1_ <- reactive({
     
     pred1 = predict(fit1(), new_data = test())
     
-    # dat1_ <- input_dataset() %>%
-    #   dplyr::select(
-    #     dependent_var = input$y_var,
-    #     input$x_vars) %>%
-    #   drop_na()
     
     dat1 = train() %>%
       dplyr::mutate(preds = pred1,
@@ -1169,12 +1158,7 @@ server <- function(input, output, session) {
     pred = predict(fit2(), new_data = test())
     std_error = summary(fit1())$sigma
     
-    # dat2_ <- input_dataset() %>%
-    #   dplyr::select(
-    #     dependent_var = input$y_var,
-    #     input$x_vars) %>%
-    #   drop_na()
-    
+  
     dat3 = train() %>%
       dplyr::mutate(residuals = summary(fit1())$residuals,
                     dummy1    = if_else(residuals >= std_error, 1, 0),
