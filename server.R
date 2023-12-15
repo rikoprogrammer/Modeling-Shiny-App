@@ -1147,21 +1147,21 @@ server <- function(input, output, session) {
       write.csv(preds_time2(), file, row.names = FALSE)
     }
   )
-  ####pred vs actual datasets for use in plotting the graphs
+  ####pred vs actual data sets for use in plotting the graphs
   
   dat1_ <- reactive({
     
     pred1 = predict(fit1(), new_data = test())
     
-    dat1_ <- input_dataset() %>%
-      dplyr::select(
-        dependent_var = input$y_var,
-        input$x_vars) %>%
-      drop_na()
+    # dat1_ <- input_dataset() %>%
+    #   dplyr::select(
+    #     dependent_var = input$y_var,
+    #     input$x_vars) %>%
+    #   drop_na()
     
-    dat1 = dat1_ %>%
+    dat1 = train() %>%
       dplyr::mutate(preds = pred1,
-                    x = seq(1:nrow(dat1_)))
+                    x = seq(1:nrow(train())))
   })
   
   dat2_ <- reactive({
@@ -1181,7 +1181,7 @@ server <- function(input, output, session) {
                     dummy2    = if_else(residuals < -std_error, 1, 0)) %>%
       dplyr::select(-residuals) %>%
       dplyr::mutate(preds = pred,
-                    x = seq(1:nrow(dat2_)))
+                    x = seq(1:nrow(train())))
   })
   
   #model summary1
