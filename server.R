@@ -354,8 +354,6 @@ server <- function(input, output, session) {
   })
   
   
-
-  
   #Download handlers
   
   output$dw1 <- downloadHandler(
@@ -495,9 +493,9 @@ server <- function(input, output, session) {
       return(cat("Please select your data and run the model first!"))
     }else if(!is.null(input) & input$run3 > 0){
       
-      y = data_ridge()$dependent_var
+      y = train()$dependent_var
       
-      x = data_ridge() %>% 
+      x = train() %>% 
         dplyr::select(input$x_vars) %>% 
         data.matrix()
       
@@ -895,13 +893,13 @@ server <- function(input, output, session) {
     pred1 = predict(fit1(), new_data = test())
     
     
-    dat1_ <- input_dataset() %>% 
-      dplyr::select(
-        input$y_var) %>% 
-      drop_na() 
+    # dat1_ <- input_dataset() %>% 
+    #   dplyr::select(
+    #     input$y_var) %>% 
+    #   drop_na() 
     
     
-    preds1 = dat1_ %>%
+    preds1 = train() %>%
       dplyr::mutate(preds = pred1)
     
   })
@@ -910,13 +908,13 @@ server <- function(input, output, session) {
     
     pred = predict(fit2(), new_data = test())
     
-    dat2_ <- input_dataset() %>% 
-      dplyr::select(
-        input$y_var) %>% 
-      drop_na() 
+    # dat2_ <- input_dataset() %>% 
+    #   dplyr::select(
+    #     input$y_var) %>% 
+    #   drop_na() 
     
     
-    preds2 = dat2_ %>%
+    preds2 = train() %>%
       dplyr::mutate(preds = pred)
     
   })
@@ -925,13 +923,13 @@ server <- function(input, output, session) {
     
     pred = predict(forward_fit(), new_data = test())
     
-    dat2_ <- input_dataset() %>% 
-      dplyr::select(
-        input$y_var) %>% 
-      drop_na() 
+    # dat2_ <- input_dataset() %>% 
+    #   dplyr::select(
+    #     input$y_var) %>% 
+    #   drop_na() 
     
     
-    preds_forward = dat2_ %>%
+    preds_forward = train() %>%
       dplyr::mutate(preds = pred)
     
   })
@@ -940,13 +938,13 @@ server <- function(input, output, session) {
     
     pred = predict(backward_fit(), new_data = test())
     
-    dat2_ <- input_dataset() %>% 
-      dplyr::select(
-        input$y_var) %>% 
-      drop_na() 
+    # dat2_ <- input_dataset() %>% 
+    #   dplyr::select(
+    #     input$y_var) %>% 
+    #   drop_na() 
     
     
-    preds_back = dat2_ %>%
+    preds_back = train() %>%
       dplyr::mutate(preds = pred)
     
   })
@@ -955,9 +953,13 @@ server <- function(input, output, session) {
   
   preds_ridge <- reactive({
     
-    y = data_ridge()$dependent_var
+    y = train()$dependent_var
     
-    x = data_ridge() %>% 
+    x = train() %>% 
+      dplyr::select(input$x_vars) %>% 
+      data.matrix()
+    
+    x_test = test() %>% 
       dplyr::select(input$x_vars) %>% 
       data.matrix()
     
@@ -969,11 +971,11 @@ server <- function(input, output, session) {
     
     fit_ridge <- glmnet(x, y, alpha = 0, lambda = best_lambda)
     
-    pred = predict(fit_ridge(), s = best_lambda, newx = x)
+    pred = predict(fit_ridge(), s = best_lambda, newx = x_test)
     
-    dat2_ <- input_dataset() %>% 
-      dplyr::select(
-        input$y_var) %>% 
+    dat2_ <- test() %>% 
+      # dplyr::select(
+      #   input$y_var) %>% 
       drop_na() 
     
     

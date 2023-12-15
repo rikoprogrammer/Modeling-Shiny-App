@@ -3,7 +3,7 @@
 The main purpose of the app is to fit linear regression models, time series models, 
 IV regression models, Machine learning models and ridge regression model. Please use the following steps.
 
-After uploading your file, please remember to choose the proportion of your data set that you want to be used for training purposes. The app will use the remaining portion of your data set to carry out testing in order to evaluate the performance of the model.
+After uploading your file, please remember to choose the portion of your data set that you want to be used for training purposes. The app will use the remaining portion of your data set to carry out testing in order to evaluate the performance of the model.
 
 If your data set has missing values; the app will drop them prior to fitting models.
 
