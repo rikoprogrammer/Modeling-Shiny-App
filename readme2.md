@@ -3,6 +3,10 @@
 The main purpose of the app is to fit linear regression models, time series models, 
 IV regression models, Machine learning models and ridge regression model. Please use the following steps.
 
+After uploading your file, please remember to choose the proportion of your data set that you want to be used for training purposes. The app will use the remaining portion of your data set to carry out testing in order to evaluate the performance of the model.
+
+If your data set has missing values; the app will drop them prior to fitting models.
+
 Step 1: Select an Excel file of your choice (The file should have column names on the first row)
 
 Step 2: Select a continuous dependent variable and some independent variables.
@@ -13,7 +17,7 @@ Once these variables are chosen, the user has the choice of several different st
 
 1. The first statistical technique uses ordinary least squares (OLS) regression techniques. Our app offers 2 step-wise methods for optimizing ordinary least squares regression; namely, forward and backward step-wise regressions.
 
-The second statistical technique also uses ordinary least squares (OLS) and includes 2 dummies meant to eliminate outliers. Their inclusion can tighten the regression model but comes at the cost of “overfitting” the regression by reducing the degrees of freedom by 2. 
+The second statistical technique also uses ordinary least squares (OLS) and includes 2 dummies meant to eliminate outliers. Their inclusion can tighten the regression model but comes at the cost of “over fitting” the regression by reducing the degrees of freedom by 2. 
 
 The dummy variables are based upon standard errors and residuals, dummy 1 is equal 1 if the residuals are equal to or greater than the standard error and it is zero otherwise.
 

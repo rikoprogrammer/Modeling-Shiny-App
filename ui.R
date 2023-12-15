@@ -18,6 +18,12 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                            max = 10,
                                            value = 1),
                               
+                              sliderInput(inputId = "prop",
+                                          label = "Proportion for the training set",
+                                          value = 0,
+                                          min   = 0,
+                                          max   = 1,
+                                          step  = 0.05),
                               
                               selectInput(inputId = "y_var",
                                           label = "select continuous outcome variable",
@@ -139,12 +145,6 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                              navbarMenu("Machine learning models",
                                         
                                         tabPanel(
-                                          sliderInput(inputId = "prop",
-                                                      label = "Proportion for the train set",
-                                                      value = 0,
-                                                      min = 0,
-                                                      max = 1,
-                                                      step = 0.05),
                                           
                                           title = "Decision tree model",
                                           actionButton("idn1", "Click here to run the model"),
