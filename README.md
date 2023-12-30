@@ -7,4 +7,4 @@ The main purpose of the app is to fit linear regression models, time series mode
 
 To see the app in action just click on the link below.
 
-https://4lt3sb-eric-odongo.shinyapps.io/ModelApp/
+https://4lt3sb-eric-odongo.shinyapps.io/Modeling-Shiny-App/
