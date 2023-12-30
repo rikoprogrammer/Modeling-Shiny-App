@@ -62,7 +62,7 @@ tabpanFun1 <- function(id, id2 = NULL, label, label2 = "Download Me!", OutputId,
 
 tabpanFun2 <- function(title, label1 = "Predictions", label2 = "Coefficients", id1 = NULL, 
                        id2 = NULL, id3 = NULL, id4 = NULL, id5 = NULL, id6 = NULL, 
-                       id7 = NULL,id8=NULL, run_id = NULL, ...) {
+                       id7 = NULL, id8 = NULL, run_id = NULL, ...) {
   
   tabPanel(
     title = title,

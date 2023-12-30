@@ -14,6 +14,7 @@ server <- function(input, output, session) {
     }
   ) 
   
+  
   vars2 <- tibble::tribble(
     
     ~id, ~label,
@@ -403,7 +404,6 @@ server <- function(input, output, session) {
   
 ###### END OF THE SECOND APP: IV regression and machine learning models ###
  
-  
   
   
   #### Rendering the raw data and the log transformed data sets
@@ -984,42 +984,33 @@ server <- function(input, output, session) {
     
   })
   
-  #predictions for time series regression
+  #predictions for time series models
   
   preds_time <- reactive({
     
-    pred = forecast(ts_fit())
+    pred = forecast::forecast(ts_fit())
     y = as.numeric(pred$fitted)
     
-    dat2_ <- input_dataset() %>% 
-      dplyr::select(
-        input$y_var) %>% 
-      drop_na() 
-    
-    
-    preds_time = dat2_ %>%
-      dplyr::mutate(preds = y)
+
+    preds_time = input_dataset() %>%
+      dplyr::mutate(preds = y) %>% 
+      arrange(1)
     
   })
   
   preds_time2 <- reactive({
     
-    pred = forecast(ts_fit2())
+    pred = forecast::forecast(ts_fit2())
     y = as.numeric(pred$fitted)
     
-    dat2_ <- input_dataset() %>% 
-      dplyr::select(
-        input$y_var) %>% 
-      drop_na() 
     
-    
-    preds_time2 = dat2_ %>%
+    preds_time2 = input_dataset() %>%
       dplyr::mutate(preds = y)
     
   })
   
   
-  ###Download Handlers
+  ### Download Handlers
   
   output$downloadCoef1 <- downloadHandler(
 

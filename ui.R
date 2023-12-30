@@ -44,10 +44,6 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                 pmap(vars[2,], mySelectInput),
                                 pmap(vars[3,], mySelectInput),
                               
-                                
-                              
-                              
-                              
                 ),
                 
                 mainPanel(
@@ -106,7 +102,6 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                           
                                           verbatimTextOutput("model_summary6"),
                                     
-                                          #downloadButton("downloadPreds8", "Predictions"),
                                           selectInput(inputId = "x_vars2",
                                                       label = "select a single predictor",
                                                       choices = "",
@@ -175,27 +170,13 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                               tabPanel(
                                 title = "IV Regression",
                                 actionButton("idn3","Click here to run the model"),
-                                #downloadButton("iv_summary1", "Summary report"),
                                 downloadButton("dw3","Download coefficients"),
                                 
                                 verbatimTextOutput("iv_summary")
                               
                              ),
                              
-                             # tabPanel(
-                             #   title = "Download time series data",
-                             #   downloadButton("scrape","Download data"),
-                             #   DTOutput("scrape1")
-                             # )
-                             
-                             #   column(4, pmap(vars[1,], mySelectInput)),
-                             #   column(4, pmap(vars[2,], mySelectInput)),
-                             #   column(4, pmap(vars[3,], mySelectInput)),
-                             #   actionButton("idn3","Click here to run the model"),
-                             #   downloadButton("iv_summary1", "Summary report"),
-                             #   downloadButton("dw3","Download coefficients"),
-                             #   
-                             #   verbatimTextOutput("iv_summary")
+                          
                   )
                 )
 )
